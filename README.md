@@ -1,6 +1,6 @@
 # ASTMAutomationFramework
 Playwright-Typescript based framework for web application automation testing
-- ### For importing existing project from GitHub and creating feature branch
+- ### For importing project from GitHub and creating feature branch
   - Clone the project:
     ````
     git clone https://github.com/hariqualizeal/ASTMAutomationFramework.git
@@ -10,4 +10,5 @@ Playwright-Typescript based framework for web application automation testing
   - Commit your changes: `git commit -m "commit message"`
   - Push to the branch: `git push origin my-new-feature-branch-name`
   - Open GitHub and create a pull request to main branch
+  - Delete the feature branch after the feature branch code is merged with main
   - To delete feature branch in github: `git push -d origin feature-branch-name`
