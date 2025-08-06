@@ -3,7 +3,7 @@ Playwright-Typescript based framework for web application automation testing
 - ### For importing existing project from GitHub and creating feature branch
   - Clone the project:
     ````
-    git clone https://github.com/harigithub1/AutomationFramework.git
+    git clone https://github.com/hariqualizeal/ASTMAutomationFramework.git
     ````
   - Create your feature branch: `git branch my-new-feature-branch-name`
   - Add your code changes: `git add my-file-name`
