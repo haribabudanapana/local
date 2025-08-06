@@ -1,0 +1,7 @@
+{
+    "GetDataFromAccountSettingAccountID": "SELECT as2.\"Acronym\", as2.\"CompanyURL\", as2.\"ModifiedDate\" FROM aisdm.\"AccountSetting\" as2 WHERE \"AccountID\" = $AccountID;",
+    "GetDataFromAccountAuthenticationSetting": "SELECT aas.\"AccountAuthenticationSettingID\", aas.\"JWT\", aas.\"ModifiedDate\" FROM aisdm.\"AccountAuthenticationSetting\" aas WHERE \"AccountID\" = $AccountID;",
+    "GetDataFromAccountApplicationAuthenticationSetting": "SELECT aaas.\"IPEnabled\", aaas.\"AnonymousOrgAuthEnabled\", aaas.\"ModifiedDate\" FROM aisdm.\"AccountApplicationAuthenticationSetting\" aaas WHERE aaas.\"AccountAuthenticationSettingID\" = (SELECT aas.\"AccountAuthenticationSettingID\" FROM aisdm.\"AccountAuthenticationSetting\" aas WHERE \"AccountID\" = $AccountID);",
+    "GetDataFromPublisher": "SELECT * FROM aisdm.\"Publisher\" p WHERE p.\"Name\" = '$Name';",
+    "GetCollectioncriteriatype": "SELECT * FROM aismm.\"ebs_pricing_pim_mapping\" p WHERE p.\"item_type\" = '$itemtype';"
+}

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwright Framework Development Guide</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            line-height: 1.6;
+            color: #333;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 {
+            border-bottom: 1px solid #eaecef;
+            padding-bottom: .3em;
+            margin-top: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: #f6f8fa;
+            padding: .2em .4em;
+            margin: 0;
+            font-size: 85%;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            overflow: auto;
+            border-radius: 3px;
+        }
+        pre code {
+            padding: 0;
+            margin: 0;
+            font-size: 100%;
+            background-color: transparent;
+            border: 0;
+        }
+        .nav {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav li a {
+            text-decoration: none;
+            color: #0366d6;
+            display: block;
+            padding: 5px 0;
+        }
+        .comment {
+            color: #2E8B57; /* SeaGreen */
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <h3>Navigation</h3>
+        <ul>
+            <li><a href="#framework-development-guide">Development Guide</a></li>
+            <li><a href="#features-and-standards">Features & Standards</a></li>
+            <li><a href="#line-by-line-explanation">Key Files</a></li>
+        </ul>
+    </div>
+
+    <h1 id="framework-development-guide">📘 Framework Development Guide</h1>
+
+    <h2 id="step-1">Step 1: Initialize Project</h2>
+    <ul>
+        <li><code>npm init -y</code></li>
+        <li><code>npm i -D playwright typescript ts-node @types/node</code></li>
+        <li>Set up <code>tsconfig.json</code></li>
+    </ul>
+
+    <h2 id="step-2">Step 2: Folder Structure</h2>
+    <ul>
+        <li>Create folders: <code>pages/</code>, <code>tests/e2e/</code>, <code>test-data/</code>, <code>utils/</code></li>
+    </ul>
+
+    <h2 id="step-2b">Step 2B: Environment Management</h2>
+    <ul>
+        <li>Create <code>.env.qa</code>, <code>.env.dev</code></li>
+        <li>Add variables like <code>BASE_URL</code>, <code>ENV</code>, etc.</li>
+        <li>Install <code>cross-env</code></li>
+    </ul>
+
+    <h2 id="step-3">Step 3: Playwright Config</h2>
+    <ul>
+        <li>Create <code>playwright.config.ts</code></li>
+        <li>Set <code>retries</code>, <code>timeout</code>, <code>reporter</code>, <code>testDir</code>, <code>workers</code></li>
+        <li>Use <code>dotenv</code> to load <code>.env</code> files dynamically</li>
+    </ul>
+
+    <h2 id="step-3a">Step 3A: testDataLoader Utility</h2>
+    <ul>
+        <li>Extract JIRA ID from test file</li>
+        <li>Based on <code>ENV</code>, load appropriate JSON data file</li>
+    </ul>
+
+    <h2 id="step-3b">Step 3B: Page Object Model (POM)</h2>
+    <ul>
+        <li><code>LoginPage.ts</code> with <code>login</code> method</li>
+        <li>Use CSS selectors or test ids (avoid hardcoded XPath)</li>
+    </ul>
+
+    <h2 id="step-3c">Step 3C: Create Spec File</h2>
+    <ul>
+        <li>Name: <code>login_INT-123.spec.ts</code></li>
+        <li>Load test data using utility</li>
+        <li>Use Playwright's <code>test</code> and <code>expect</code></li>
+    </ul>
+
+    <h2 id="step-4">Step 4: Allure Report Setup</h2>
+    <ul>
+        <li>Install: <code>npm i -D allure-playwright</code></li>
+        <li>Add reporter in config: <code>[ ['allure-playwright'] ]</code></li>
+        <li>Run with cleanup, generate, and open</li>
+    </ul>
+
+    <h2 id="step-5">Step 5: Parallel & Retry</h2>
+    <ul>
+        <li>Use <code>--workers</code>, <code>--retries</code>, or configure in <code>playwright.config.ts</code></li>
+    </ul>
+
+    <h2 id="features-and-standards">🚀 Features and Coding Standards</h2>
+    <h3>Framework Features</h3>
+    <ul>
+        <li><strong>Page Object Model (POM):</strong> For clean, reusable, and maintainable code.</li>
+        <li><strong>Data-Driven Testing:</strong> Test data is separated from test logic using JSON files.</li>
+        <li><strong>Environment-Based Configuration:</strong> Easily switch between <code>dev</code> and <code>qa</code> environments.</li>
+        <li><strong>Allure Reporting:</strong> Rich, interactive test reports with detailed steps and screenshots.</li>
+        <li><strong>Parallel Execution:</strong> Tests run in parallel by default for faster execution.</li>
+        <li><strong>Retry Mechanism:</strong> Automatically retries failed tests to reduce flakiness.</li>
+    </ul>
+    <h3>Coding Standards</h3>
+    <ul>
+        <li><strong>File Naming:</strong>
+            <ul>
+                <li>Test Files: <code>&lt;feature&gt;_&lt;JIRA_ID&gt;.spec.ts</code> (e.g., <code>login_INT-123.spec.ts</code>)</li>
+                <li>Page Objects: <code>&lt;PageName&gt;Page.ts</code> (e.g., <code>LoginPage.ts</code>)</li>
+                <li>Test Data: <code>&lt;JIRA_ID&gt;.&lt;env&gt;.json</code> (e.g., <code>INT-123.qa.json</code>)</li>
+            </ul>
+        </li>
+        <li><strong>Indentation:</strong> Use 2 spaces for indentation.</li>
+        <li><strong>Selectors:</strong> Prefer CSS selectors or <code>data-testid</code> attributes over XPath for better performance and readability.</li>
+        <li><strong>Assertions:</strong> Use Playwright's <code>expect</code> for assertions.</li>
+    </ul>
+
+    <h1 id="line-by-line-explanation">📘 Line-by-Line Explanation of Key Files</h1>
+    <h2 id="playwright-config">🔹 playwright.config.ts</h2>
+    <pre><code class="language-typescript">import { defineConfig } from '@playwright/test'; <span class="comment">// ✅ Import Playwright's defineConfig for type-safety</span>
+import * as dotenv from 'dotenv'; <span class="comment">// ✅ Import dotenv to load environment variables</span>
+
+dotenv.config({ path: `.env.${process.env.ENV || 'qa'}` }); <span class="comment">// ✅ Load environment-specific .env file</span>
+
+export default defineConfig({
+  testDir: './tests', <span class="comment">// ✅ Directory where tests are located</span>
+  timeout: 30000, <span class="comment">// ✅ Timeout for each test in milliseconds</span>
+  retries: 1, <span class="comment">// ✅ Number of retries for failed tests</span>
+  use: {
+    baseURL: process.env.BASE_URL, <span class="comment">// ✅ Base URL for navigation</span>
+    browserName: 'chromium', <span class="comment">// ✅ Browser to run tests in</span>
+    headless: false, <span class="comment">// ✅ Run tests in non-headless mode</span>
+    trace: 'on', <span class="comment">// ✅ Record a trace for each test</span>
+    screenshot: 'only-on-failure', <span class="comment">// ✅ Capture screenshot only on failure</span>
+    video: 'retain-on-failure', <span class="comment">// ✅ Record video and retain on failure</span>
+  },
+  reporter: [ <span class="comment">// ✅ Configure reporters</span>
+    ['list'], <span class="comment">// ✅ Simple list reporter</span>
+    ['html'], <span class="comment">// ✅ Playwright's HTML reporter</span>
+    ['allure-playwright'] <span class="comment">// ✅ Allure reporter</span>
+  ],
+});</code></pre>
+
+    <h2 id="tsconfig">🔹 tsconfig.json</h2>
+    <pre><code class="language-json">{
+  "compilerOptions": {
+    "target": "ESNext", <span class="comment">// ✅ Compile to modern JavaScript version</span>
+    "module": "CommonJS", <span class="comment">// ✅ Use CommonJS module system</span>
+    "moduleResolution": "node", <span class="comment">// ✅ How modules get resolved</span>
+    "esModuleInterop": true, <span class="comment">// ✅ Enables interoperability between CommonJS and ES Modules</span>
+    "strict": true, <span class="comment">// ✅ Enable all strict type-checking options</span>
+    "outDir": "dist", <span class="comment">// ✅ Output directory for compiled files</span>
+    "types": ["@playwright/test"] <span class="comment">// ✅ Include Playwright's types</span>
+  },
+  "include": ["tests", "pages", "utils"] <span class="comment">// ✅ Directories to include in compilation</span>
+}</code></pre>
+
+    <h2 id="package-json">🔹 package.json</h2>
+    <pre><code class="language-json">{
+  "name": "astmautomationframework",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test", <span class="comment">// ✅ Run all tests</span>
+    "report:generate": "allure generate ./allure-results --clean -o ./allure-report", <span class="comment">// ✅ Generate Allure report</span>
+    "report:open": "allure open ./allure-report", <span class="comment">// ✅ Open Allure report</span>
+    "test:with-allure": "npm run test && timeout 2 && npm run report:generate && npm run report:open" <span class="comment">// ✅ Run tests and generate/open Allure report</span>
+  },
+  "devDependencies": { <span class="comment">// ✅ Dependencies for development and testing</span>
+    "@playwright/test": "^1.54.1",
+    "allure-js-commons": "^3.3.1",
+    "allure-playwright": "^3.3.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": { <span class="comment">// ✅ Dependencies required for the application</span>
+    "dotenv": "^17.2.0"
+  }
+}</code></pre>
+
+    <h2 id="login-spec">🔹 login_INT-123.spec.ts</h2>
+    <pre><code class="language-typescript">import { test, expect } from '@playwright/test'; <span class="comment">// ✅ Playwright test functions</span>
+import { LoginPage } from '../../pages/LoginPage'; <span class="comment">// ✅ Page Object for login</span>
+import { loadTestData } from '../../utils/testDataLoader'; <span class="comment">// ✅ Utility to load test data</span>
+
+const testData = loadTestData(__filename); <span class="comment">// ✅ Loads data based on JIRA ID in filename</span>
+
+test('INT-123 | Login with valid credentials', async ({ page }) => {
+  const loginPage = new LoginPage(page); <span class="comment">// ✅ Create page object</span>
+  await loginPage.login(testData.username, testData.password); <span class="comment">// ✅ Use test data for login</span>
+  await expect(page).toHaveURL(/inventory/); <span class="comment">// ✅ Validate successful login</span>
+});</code></pre>
+
+    <h2 id="testdata-loader">🔹 testDataLoader.ts</h2>
+    <pre><code class="language-typescript">import path from 'path'; <span class="comment">// ✅ Used to construct cross-platform paths</span>
+import fs from 'fs'; <span class="comment">// ✅ Used to read file contents</span>
+
+export function loadTestData(testFilePath: string) {
+  const match = testFilePath.match(/_(\w+-\d+)\.spec\.ts$/); <span class="comment">// ✅ Extract JIRA ID from filename</span>
+  if (!match) throw new Error(`Could not extract JIRA ID from file: ${testFilePath}`);
+
+  const jiraId = match[1];
+  const env = process.env.ENV || 'qa'; <span class="comment">// ✅ Default to 'qa' if ENV is not set</span>
+  const filePath = path.join(__dirname, `../test-data/${jiraId}.${env}.json`); <span class="comment">// ✅ Full file path</span>
+
+  if (!fs.existsSync(filePath)) throw new Error(`Test data file not found: ${filePath}`);
+
+  const data = fs.readFileSync(filePath, 'utf-8');
+  return JSON.parse(data); <span class="comment">// ✅ Return parsed JSON object</span>
+}</code></pre>
+
+    <h2 id="testdata-json">🔹 INT-123.qa.json</h2>
+    <pre><code class="language-json">{
+  "username": "standard_user", <span class="comment">// ✅ Username for test</span>
+  "password": "secret_sauce"   <span class="comment">// ✅ Password for test</span>
+}</code></pre>
+
+    <h2 id="login-page">🔹 LoginPage.ts</h2>
+    <pre><code class="language-typescript">import { Page } from '@playwright/test'; <span class="comment">// ✅ Playwright Page type</span>
+
+export class LoginPage {
+  constructor(private page: Page) {} <span class="comment">// ✅ Dependency injection of Playwright Page</span>
+
+  async login(username: string, password: string) {
+    await this.page.fill('#user-name', username); <span class="comment">// ✅ Fill username field</span>
+    await this.page.fill('#password', password); <span class="comment">// ✅ Fill password field</span>
+    await this.page.click('#login-button'); <span class="comment">// ✅ Click login</span>
+  }
+}</code></pre>
+
+</body>
+</html>

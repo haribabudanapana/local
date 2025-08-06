@@ -1,0 +1,1 @@
+[{"uid":"a8bdb045cbb47678","name":"Open SauceDemo login page","time":{"start":1752857312131,"stop":1752857317771,"duration":5640},"status":"passed","severity":"normal"},{"uid":"1e369bec8e638d69","name":"Login with valid credentials","time":{"start":1752857325036,"stop":1752857335016,"duration":9980},"status":"failed","severity":"normal"}]

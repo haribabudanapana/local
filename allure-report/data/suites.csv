@@ -1,0 +1,3 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","5640","Open SauceDemo login page","","Fri Jul 18 22:18:32 IST 2025","passed","Fri Jul 18 22:18:37 IST 2025","","e2e\sample.spec.ts","",""
+"","9980","Login with valid credentials","","Fri Jul 18 22:18:45 IST 2025","failed","Fri Jul 18 22:18:55 IST 2025","","e2e\login_INT-123.spec.ts","",""

@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"5d347ff49c87aab7722fe27f809070bd","name":"e2e\\login_INT-123.spec.ts","statistic":{"failed":1,"broken":0,"skipped":0,"passed":0,"unknown":0,"total":1}},{"uid":"1ceb366153ab88af667c99d69154080a","name":"e2e\\sample.spec.ts","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}
