@@ -1,7 +1,7 @@
 # ASTMAutomationFramework
 Playwright-Typescript based framework for web application automation testing
 ## GitHub
-- Follow below instructions for contributing to the project
+ Follow below instructions for contributing to the project
 - ### Git commands/steps
   - Clone the project:
     In gitbash/git terminal, enter below command
