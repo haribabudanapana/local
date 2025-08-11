@@ -339,7 +339,6 @@ async validateYesButton(tenantCode: string) {
   await tenantDotsLocator.scrollIntoViewIfNeeded();
   await tenantDotsLocator.click();
   await this.page.screenshot({ path: `TenantDots_Clicked_${tenantCode}.png` });
-//  await this.page.waitForTimeout(5000);
 
   await tenantResumeLocator.click();
   await expect(this.General).toBeVisible({ timeout: 20000 });

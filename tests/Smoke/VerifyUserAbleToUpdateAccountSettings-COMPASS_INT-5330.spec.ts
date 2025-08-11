@@ -9,7 +9,6 @@ import { Client } from 'pg';
 const testData = loadTestData(__filename);
 
 test.describe('@Smoke Verify user can update MAE Access Settings and validate DB - INT-5330', () => {
-  
 test('Verify user can update MAE Access Settings and validate DB - INT-5330', async ({ page }) => {
   test.setTimeout(120000) ;
   const maePage = new Maepage(page);
