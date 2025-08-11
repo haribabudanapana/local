@@ -174,11 +174,9 @@ async groupsCheck(): Promise<string> {
 
     if (label === 'Disabled') {
       await this.groupsPointToggle.click();
-//      await this.page.waitForTimeout(2000);
       return 'Enabled';
     } else if (label === 'Enabled') {
       await this.groupsPointToggle.click();
-//      await this.page.waitForTimeout(2000);
       return 'Disabled';
     }
 
@@ -275,7 +273,6 @@ async groupsCheck(): Promise<string> {
       await this.RecentHistoryLabel.waitFor({ state: 'visible', timeout: 30000 });
 
       await this.VerifyAuditHistory.waitFor({ state: 'visible', timeout: 30000 });
-//      await this.page.waitForTimeout(30000);
       const historyText = await this.VerifyAuditHistory.textContent();
       if (!historyText?.includes(note)) {
         throw new Error("Note not found in audit history");
@@ -420,12 +417,10 @@ async verifyStockcode_Graceperiodcheck_1(stockcode: string): Promise<string | nu
 
       // Click Search button
       await this.SearchBtn.click();
-//      await this.page.waitForTimeout(10000);
 
       // Click on Grace Period dropdown
       await this.GracePeriodDDN.scrollIntoViewIfNeeded();
       await this.GracePeriodDDN.click();
-//      await this.page.waitForTimeout(1000);
 
       // Wait for grace period options
       const graceOptions = this.page.locator("[id^='react-select-8-option']");
