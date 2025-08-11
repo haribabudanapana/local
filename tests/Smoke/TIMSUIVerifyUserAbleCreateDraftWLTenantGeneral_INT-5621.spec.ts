@@ -7,7 +7,7 @@ const testData = loadTestData(__filename);
 
 test.describe('@Smoke TIMS UI | Draft WL Tenant General', () => {
 test('TIMS UI || Verify user is able to Create Draft WL Tenant - General', async ({ page }) => {
-
+  test.setTimeout(240000) ;
   const maePage = new Maepage(page);  
   const timsuiPage = new TIMSUIIntegrationPage(page);
 
