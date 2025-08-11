@@ -221,7 +221,7 @@ async groupsCheck(): Promise<string> {
       await this.AccessManagement.waitFor({ state: 'visible', timeout: 5000 });
       await this.AccessManagement.waitFor({ state: 'attached', timeout: 10000 });
       await this.AccessManagement.click();
-      await this.page.screenshot({ path: 'AccessManagementTab.png' });
+      await this.page.screenshot({ path: 'test-results/Screenshots/AccessManagementTab.png' });
     } catch (e) {
       console.error("Failed to click on AccessManagementTab", e);
       throw e;
@@ -252,7 +252,7 @@ async groupsCheck(): Promise<string> {
       token = '"N"';
     }
 
-    await this.page.screenshot({ path: 'VerifyJWTToken.png' });
+    await this.page.screenshot({ path: 'test-results/Screenshots/VerifyJWTToken.png' });
   } catch (e) {
     console.error("Failed to validate JWT token enabled", e);
     throw e;
@@ -290,7 +290,7 @@ async groupsCheck(): Promise<string> {
     try {
       await this.CompassTab.waitFor({ state: 'attached', timeout: 30000 });
       await this.CompassTab.click();
-      await this.page.screenshot({ path: 'CompassTab.png' });
+      await this.page.screenshot({ path: 'test-results/Screenshots/CompassTab.png' });
     } catch (e) {
       console.error("Failed to click Compass Tab", e);
       throw e;
@@ -303,7 +303,7 @@ async userNameAndPasswordLoginCheck(): Promise<string> {
     let auth = "";
 
     try {
-      await this.page.screenshot({ path: 'UserNamePasswordLabel.png' });
+      await this.page.screenshot({ path: 'test-results/Screenshots/UserNamePasswordLabel.png' });
       const labelText = await this.userNamePasswordLoginLabel.textContent();
 
       if (labelText?.includes("Disabled")) {
@@ -364,21 +364,21 @@ async verifySubscriptionUsageReport() {
     await expect(this.UserReport).toBeVisible();
 
     await this.page.waitForTimeout(15000); // Equivalent to PublicCommon.waitForSec(15)
-    await this.page.screenshot({ path: 'UsageReport_Visible.png' });
+    await this.page.screenshot({ path: 'test-results/Screenshots/UsageReport_Visible.png' });
 
     // Scroll down using keyboard
     await this.page.keyboard.press('PageDown');
-    await this.page.screenshot({ path: 'After_PageDown_1.png' });
+    await this.page.screenshot({ path: 'test-results/Screenshots/After_PageDown_1.png' });
 
     await this.page.keyboard.press('PageDown');
     await this.page.keyboard.press('PageDown');
-    await this.page.screenshot({ path: 'After_PageDown_2.png' });
+    await this.page.screenshot({ path: 'test-results/Screenshots/After_PageDown_2.png' });
 
     await this.UserReport.click();
     await this.page.waitForTimeout(20000); // Equivalent to PublicCommon.waitForSec(20)
 
     await this.page.keyboard.press('PageDown');
-    await this.page.screenshot({ path: 'Final_Scroll_UserReport.png' });
+    await this.page.screenshot({ path: 'test-results/Screenshots/Final_Scroll_UserReport.png' });
   } catch (e) {
     console.error('Failed to verify Subscription Usage Report', e);
     throw e;
