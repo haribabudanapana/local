@@ -7,12 +7,11 @@ const testData = loadTestData(__filename);
 
 test.describe('@Smoke TIMS UI | Draft WL Tenant General', () => {
 test('TIMS UI || Verify user is able to Create Draft WL Tenant - General', async ({ page }) => {
-  test.setTimeout(240000) ;
+  test.setTimeout(120000) ;
   const maePage = new Maepage(page);  
   const timsuiPage = new TIMSUIIntegrationPage(page);
 
   //const tenantCode = 'Auto' + Math.random().toString(36).substring(2, 7) + Math.floor(Math.random() * 900 + 100);
-
 
   // MAE Login & Navigation
   await maePage.MAElogin(testData.StageUser, testData.StagePassword);
