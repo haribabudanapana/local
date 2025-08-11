@@ -68,7 +68,7 @@ test('Verify user can update MAE Access Settings and validate DB - INT-5330', as
     // Execute the query
     const result = await client.query(query);
 
-    Return all rows (each row is an object with key/values)
+    // Return all rows (each row is an object with key/values)
     return result.rows;
   } catch (error) {
     console.error('Failed to get data from database by query', error);
