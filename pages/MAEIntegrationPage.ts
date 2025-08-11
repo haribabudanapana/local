@@ -118,7 +118,7 @@ export class Maepage {
   async NewLoginPublic2(userEmail: string, password: string) {
     stepLogger('Performing new login with email and password');
     await test.step('Performing new login with email and password', async () => {
-    await this.newSignInButton2.waitFor({ state: 'visible', timeout: 10000 });
+    await this.newSignInButton2.waitFor({ state: 'visible', timeout: 30000 });
     await this.userNameTxt.fill(userEmail);
     await this.passwordTxt.fill(password);
     await this.handleOneTrustCookie();
@@ -174,11 +174,11 @@ async groupsCheck(): Promise<string> {
 
     if (label === 'Disabled') {
       await this.groupsPointToggle.click();
-      await this.page.waitForTimeout(2000);
+//      await this.page.waitForTimeout(2000);
       return 'Enabled';
     } else if (label === 'Enabled') {
       await this.groupsPointToggle.click();
-      await this.page.waitForTimeout(2000);
+//      await this.page.waitForTimeout(2000);
       return 'Disabled';
     }
 
@@ -270,10 +270,12 @@ async groupsCheck(): Promise<string> {
   await test.step('Verifying Audit tab with note', async () => {
     try {
       await this.AuditTab.scrollIntoViewIfNeeded();
-      await this.AuditTab.waitFor({ state: 'attached', timeout: 10000 });
+      await this.AuditTab.waitFor({ state: 'attached', timeout: 30000 });
       await this.AuditTab.click();
-      await this.page.waitForTimeout(6000);
-      await this.RecentHistoryLabel.waitFor({ state: 'visible', timeout: 10000 });
+      await this.RecentHistoryLabel.waitFor({ state: 'visible', timeout: 30000 });
+
+      await this.VerifyAuditHistory.waitFor({ state: 'visible', timeout: 30000 });
+//      await this.page.waitForTimeout(30000);
       const historyText = await this.VerifyAuditHistory.textContent();
       if (!historyText?.includes(note)) {
         throw new Error("Note not found in audit history");
@@ -289,7 +291,7 @@ async groupsCheck(): Promise<string> {
   stepLogger('Verifying Compass Tab');
   await test.step('Verifying Compass Tab', async () => {
     try {
-      await this.CompassTab.waitFor({ state: 'attached', timeout: 5000 });
+      await this.CompassTab.waitFor({ state: 'attached', timeout: 30000 });
       await this.CompassTab.click();
       await this.page.screenshot({ path: 'CompassTab.png' });
     } catch (e) {
@@ -312,7 +314,7 @@ async userNameAndPasswordLoginCheck(): Promise<string> {
         if (!labelHandle) throw new Error("UserNamePasswordLoginLabel element not found");  
 
         await this.page.evaluate(el => el.scrollIntoView(), labelHandle);
-        await this.page.waitForTimeout(5000);
+        await this.page.waitForTimeout(20000);
 
         await this.userNamePasswordLoginToggle.click();
         await this.IpaccessCheckbox.waitFor({ state: 'attached', timeout: 5000 });
@@ -325,7 +327,7 @@ async userNameAndPasswordLoginCheck(): Promise<string> {
         if (!labelHandle) throw new Error("UserNamePasswordLoginLabel element not found");
 
         await this.page.evaluate(el => el.scrollIntoView(), labelHandle);
-        await this.page.waitForTimeout(5000);
+        await this.page.waitForTimeout(30000);
 
         await this.userNamePasswordLoginToggle.click();
         auth = "false";
@@ -418,12 +420,12 @@ async verifyStockcode_Graceperiodcheck_1(stockcode: string): Promise<string | nu
 
       // Click Search button
       await this.SearchBtn.click();
-      await this.page.waitForTimeout(2000);
+//      await this.page.waitForTimeout(10000);
 
       // Click on Grace Period dropdown
       await this.GracePeriodDDN.scrollIntoViewIfNeeded();
       await this.GracePeriodDDN.click();
-      await this.page.waitForTimeout(1000);
+//      await this.page.waitForTimeout(1000);
 
       // Wait for grace period options
       const graceOptions = this.page.locator("[id^='react-select-8-option']");

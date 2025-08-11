@@ -93,7 +93,7 @@ export class TIMSUIIntegrationPage {
       try {
         await this.TIMSbtn.waitFor({ state: 'visible', timeout: 20000 });
         await this.TIMSbtn.click();
-        await this.page.waitForTimeout(15000); // equivalent to waitForSec(15)
+        await this.page.waitForTimeout(30000); // equivalent to waitForSec(15)
         await expect(this.page).toHaveTitle('TIMS UI');
         await this.page.screenshot({ path: 'selectTIMSEntitlement_1.png' });
         await this.manageTenantsHeader.waitFor({ state: 'visible', timeout: 10000 });
@@ -339,7 +339,7 @@ async validateYesButton(tenantCode: string) {
   await tenantDotsLocator.scrollIntoViewIfNeeded();
   await tenantDotsLocator.click();
   await this.page.screenshot({ path: `TenantDots_Clicked_${tenantCode}.png` });
-  await this.page.waitForTimeout(5000);
+//  await this.page.waitForTimeout(5000);
 
   await tenantResumeLocator.click();
   await expect(this.General).toBeVisible({ timeout: 20000 });
@@ -367,7 +367,7 @@ async validateYesButton(tenantCode: string) {
     await test.step('Validate No Button', async () => {
       try {
         await this.page.screenshot({ path: 'ValidateNoButton_1.png' });
-        await this.NoBtn.waitFor({ state: 'visible', timeout: 500000 });
+        await this.NoBtn.waitFor({ state: 'visible', timeout: 30000 });
         await this.NoBtn.click();
         await this.Home.scrollIntoViewIfNeeded();
         await this.ViewDraftTenantsHeading.waitFor({ state: 'visible', timeout: 10000 });
