@@ -93,7 +93,6 @@ export class TIMSUIIntegrationPage {
       try {
         await this.TIMSbtn.waitFor({ state: 'visible', timeout: 20000 });
         await this.TIMSbtn.click();
-        await this.page.waitForTimeout(30000); // equivalent to waitForSec(15)
         await expect(this.page).toHaveTitle('TIMS UI');
         await this.page.screenshot({ path: 'test-results/Screenshots/selectTIMSEntitlement_1.png' });
         await this.manageTenantsHeader.waitFor({ state: 'visible', timeout: 10000 });
@@ -223,19 +222,13 @@ export class TIMSUIIntegrationPage {
 
  async validateExitButton() {
   await test.step('Validate Exit button and confirmation popup', async () => {
-    await this.page.waitForTimeout(5000); // waitForSec(5)
-
     await this.exitButton.scrollIntoViewIfNeeded(); // mimic scrollToElement
     await this.exitButton.click(); // click
-
     await this.page.screenshot({ path: 'test-results/Screenshots/validateExitButton_1.png' });
-
     await this.attentionPopup.waitFor({ timeout: 5000 }); // wait for popup
-
     await expect(this.attentionPopup).toBeVisible(); // assert popup
     await expect(this.yesButton).toBeVisible(); // assert yes button
     await expect(this.noButton).toBeVisible(); // assert no button
-
     await this.page.screenshot({ path: 'test-results/Screenshots/validateExitButton_2.png' });
   });
 }
@@ -276,10 +269,8 @@ async validateYesButton(tenantCode: string) {
     await test.step(`Validate List of View Draft Tenants - ${tenantCode}`, async () => {
       await this.ViewDraftTenantsTable.waitFor({ state: 'visible', timeout: 10000 });
       await this.ShowDropDown.selectOption({ label: 'Show 50' });
-      await this.page.waitForTimeout(5000);
       await this.page.screenshot({ path: 'test-results/Screenshots/ValidateListOfViewDraftTenants_dropdown.png' });
       await this.nextPage1.scrollIntoViewIfNeeded();
-      await this.page.waitForTimeout(5000);
       await this.validateTenantNameInListOfViewDraftTenants(tenantCode, 'all');
     });
   }
@@ -297,8 +288,6 @@ async validateYesButton(tenantCode: string) {
   if (pagination === 'last') {
     await this.goToPageInput_ViewDraftTenants.fill(`${maxPageNum}`);
     await this.goToPageInput_ViewDraftTenants.press('Enter');
-    await this.page.waitForTimeout(2000);
-
     if (await tenantLocator(tenantCodeUpper).count() > 0) {
       tenantFound = true;
       await tenantLocator(tenantCodeUpper).scrollIntoViewIfNeeded();
@@ -324,7 +313,6 @@ async validateYesButton(tenantCode: string) {
         // Don't click next on last page
         if (i < maxPageNum) {
           await this.nextPage1.click();
-          await this.page.waitForTimeout(3000);
         }
       }
     }
@@ -354,7 +342,6 @@ async validateYesButton(tenantCode: string) {
         await this.ExitBtn.waitFor({ state: 'visible', timeout: 100000 });
         await this.ExitBtn.click();
         await this.page.screenshot({ path: 'test-results/Screenshots/ClickExitButton.png' });
-        await this.page.waitForTimeout(10000);
       } catch (error) {
         console.error("Failed to Click Exit Button", error);
         throw error;

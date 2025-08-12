@@ -202,7 +202,6 @@ async groupsCheck(): Promise<string> {
     await this.Signoutdropdown.click();
     await this.SignoutBtn.waitFor({ state: 'visible', timeout: 5000 });
     await this.SignoutBtn.click();
-    await this.page.waitForTimeout(5000); // Wait for signout to complete
     });
   }
 
@@ -311,8 +310,6 @@ async userNameAndPasswordLoginCheck(): Promise<string> {
         if (!labelHandle) throw new Error("UserNamePasswordLoginLabel element not found");  
 
         await this.page.evaluate(el => el.scrollIntoView(), labelHandle);
-        await this.page.waitForTimeout(20000);
-
         await this.userNamePasswordLoginToggle.click();
         await this.IpaccessCheckbox.waitFor({ state: 'attached', timeout: 5000 });
         await this.IpaccessCheckbox.click();
@@ -324,8 +321,6 @@ async userNameAndPasswordLoginCheck(): Promise<string> {
         if (!labelHandle) throw new Error("UserNamePasswordLoginLabel element not found");
 
         await this.page.evaluate(el => el.scrollIntoView(), labelHandle);
-        await this.page.waitForTimeout(30000);
-
         await this.userNamePasswordLoginToggle.click();
         auth = "false";
       }
@@ -362,21 +357,15 @@ async verifySubscriptionUsageReport() {
     await this.UsageReport.waitFor({ state: 'visible', timeout: 15000 });
     await expect(this.UsageReport).toBeVisible();
     await expect(this.UserReport).toBeVisible();
-
-    await this.page.waitForTimeout(15000); // Equivalent to PublicCommon.waitForSec(15)
     await this.page.screenshot({ path: 'test-results/Screenshots/UsageReport_Visible.png' });
 
     // Scroll down using keyboard
     await this.page.keyboard.press('PageDown');
     await this.page.screenshot({ path: 'test-results/Screenshots/After_PageDown_1.png' });
-
     await this.page.keyboard.press('PageDown');
     await this.page.keyboard.press('PageDown');
     await this.page.screenshot({ path: 'test-results/Screenshots/After_PageDown_2.png' });
-
     await this.UserReport.click();
-    await this.page.waitForTimeout(20000); // Equivalent to PublicCommon.waitForSec(20)
-
     await this.page.keyboard.press('PageDown');
     await this.page.screenshot({ path: 'test-results/Screenshots/Final_Scroll_UserReport.png' });
   } catch (e) {
@@ -394,7 +383,6 @@ async verifySubscriptionUsageReport() {
       await this.ProductEntLink.scrollIntoViewIfNeeded();
       await this.ProductEntLink.waitFor({ state: 'visible', timeout: 10000 });
       await this.ProductEntLink.click();
-      await this.page.waitForTimeout(10000); // equivalent to waitForSec(10)
     } catch (e) {
       console.error('Failed to click on Product Entitlement tab', e);
       throw e; // fail the test

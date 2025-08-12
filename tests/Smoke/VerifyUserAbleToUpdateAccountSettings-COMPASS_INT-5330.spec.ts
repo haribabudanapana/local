@@ -12,8 +12,9 @@ test.describe('@Smoke Verify user can update MAE Access Settings and validate DB
 test('Verify user can update MAE Access Settings and validate DB - INT-5330', async ({ page }) => {
   test.setTimeout(120000) ;
   const maePage = new Maepage(page);
-  const AccountSettingNote = 'Account Note';
-  const CompassNote = 'Compass Note';
+  const  now = new Date();
+  const AccountSettingNote = 'Account Note'+now.getDate()+now.getMonth()+now.getFullYear();
+  const CompassNote = 'Compass Note'+now.getDate()+now.getMonth()+now.getFullYear();
 
   await maePage.MAElogin(testData.StageUser, testData.StagePassword);
   await maePage.clickMAEButton();
