@@ -1,0 +1,146 @@
+import { Page, Locator } from '@playwright/test';
+
+export class CustomerViewPage_PublicAdmin {
+	page: Page;
+  accountInformationButton: Locator;
+  spinnerIcon: Locator;
+  addressButton: Locator;
+  contactsButton: Locator;
+  createOrderButton: Locator;
+  relationshipButton: Locator;
+  addNewRelationshipButton: Locator;
+  startDateField: Locator;
+  endDateField: Locator;
+  contactID: Locator;
+  accountInformationButtonForIncompleteAccount: Locator;
+  youSaveCustomerSuccessMessage: Locator;
+  creditHoldPopupMessage: Locator;
+  creditHoldPopupOkMessage: Locator;
+  orderTab: Locator;
+  pageHeading: Locator;
+  specialHandlingHeadingFromDialogBox: Locator;
+  accountRequiresMessageFromDialogBox: Locator;
+  okButtonOnSpecialHandlingDialogBox: Locator;
+  closeSpecialHandlingDialogBox: Locator;
+  accountCreatedInLabel: Locator;
+  customerViewTab: Locator;
+  addProductSKU: Locator;
+  addProductBtn: Locator;
+  addSKUNumber: Locator;
+  startDate: Locator;
+  publishDate: Locator;
+  addproductQty: Locator;
+  addToOrderBtn: Locator;
+  majorPromoCodeDropdown: Locator;
+  minorPromoCodeDropdown: Locator;
+  salesChannelDropdown: Locator;
+  additionalInfoHeader: Locator;
+  submitOrderBtn: Locator;
+  orderSucessLabel: Locator;
+  submitConfirmOKBtn: Locator;
+  ebsDetailTable: Locator;
+  ebsOrderStatus: Locator;
+  customerPageHeader: Locator;
+  configureMessage: Locator;
+  configureProductBtn: Locator;
+  productConfigureDropdwn: Locator;
+  languageConfigureDropdwn: Locator;
+  configureOKBtn: Locator;
+  addProductToOrder: Locator;
+  contactDropDown: Locator;
+  updateItemsButton: Locator;
+  skuField: Locator;
+  noDataMsge: Locator;
+  addNewContact: Locator;
+  activeInputTag: Locator;
+  TPTLearner: Locator;
+  billTo: Locator;
+  shipTo: Locator;
+  deliverTo: Locator;
+  firstNameTxtInput: Locator;
+  lastNameTxtInput: Locator;
+  firstNameTextbox: Locator;
+  middlwNameTextbox: Locator;
+  lastNameTextbox: Locator;
+  emailTextbox: Locator;
+  phoneTextbox: Locator;
+  saveButton: Locator;
+  emailInput: Locator;
+  discountPopUp: Locator;
+
+  constructor(page: Page) {
+    this.page = page;
+    this.accountInformationButton = page.locator("#tab_customer");
+this.spinnerIcon = page.locator("div[data-component='customer_form.areas'] div.spinner");
+this.addressButton = page.locator("#tab_address");
+this.contactsButton = page.locator("#tab_contact");
+this.createOrderButton = page.locator("button[title='Create Order']");
+this.relationshipButton = page.locator("#tab_relationship");
+this.addNewRelationshipButton = page.locator("button.add-new-relationship-button");
+this.startDateField = page.locator("input[name='start_date']");
+this.endDateField = page.locator("input[name='end_date']");
+this.contactID = page.locator("input[name='ebs_contact_id']");
+this.accountInformationButtonForIncompleteAccount = page.locator("//div[@class='admin__page-nav']//span[contains(text(),'Account Information')]");
+this.youSaveCustomerSuccessMessage = page.locator("//div[contains(text(),'You saved the customer.')]");
+this.creditHoldPopupMessage = page.locator("//div[contains(text(),'This account is on credit hold and you cannot place an order for the account at this time.')]");
+this.creditHoldPopupOkMessage = page.locator("aside.modal-popup:nth-child(2) button:nth-child(1)");
+this.orderTab = page.locator("#tab_orders_content");
+this.pageHeading = page.locator("h1.page-title");
+this.specialHandlingHeadingFromDialogBox = page.locator("//h1[contains(text(),'Special')]");
+this.accountRequiresMessageFromDialogBox = page.locator("#special_handling_modal");
+this.okButtonOnSpecialHandlingDialogBox = page.locator("//h1[contains(text(),'Special')]//following::button[2]");
+this.closeSpecialHandlingDialogBox = page.locator("//h1[contains(text(),'Special')]//following-sibling::button");
+this.accountCreatedInLabel = page.locator(".admin__table-secondary tbody tr:nth-of-type(5) td:last-child");
+this.customerViewTab = page.locator("a#tab_customer_edit_tab_view_content");
+this.addProductSKU = page.locator("//span[text()='Add Products By SKU']");
+this.addProductBtn = page.locator("//span[text()='Add Products']");
+this.addSKUNumber = page.locator("//tbody[@id='sku_container']//td[@class='col-sku']//input");
+this.startDate = page.locator("//*[contains(@name,'compass_start_date')]");
+this.publishDate = page.locator("//*[contains(@name,'compass_publish_date')]");
+this.addproductQty = page.locator("//tbody[@id='sku_container']//td[@class='col-qty']//input");
+this.addToOrderBtn = page.locator("//div[@id='order-additional_area']//button[@title='Add to Order']");
+this.majorPromoCodeDropdown = page.locator("//select[@id='promo-code-major']");
+this.minorPromoCodeDropdown = page.locator("//select[@id='promo-code-minor']");
+this.salesChannelDropdown = page.locator("//select[@id='sales-channel']");
+this.additionalInfoHeader = page.locator("//div[@class='admin__page-section-title']//strong[text()='Additional Information']");
+this.submitOrderBtn = page.locator("//button[@id='submit_order_top_button']");
+this.orderSucessLabel = page.locator("//div[text()='You created the order.']");
+this.submitConfirmOKBtn = page.locator("//button[@class='action-primary action-accept']");
+this.ebsDetailTable = page.locator("//table[@class='admin__table-secondary order-information-table']//tr//td");
+this.ebsOrderStatus = page.locator("//table//tr/th[contains(text(),'EBS Order Status')]/following-sibling::td/span");
+this.customerPageHeader = page.locator("//div[@class='page-actions-inner']");
+this.configureMessage = page.locator("//div[@class='message message-notice']");
+this.configureProductBtn = page.locator("//button[@title='Configure']");
+this.productConfigureDropdwn = page.locator("//select[@class='admin__control-select required-entry super-attribute-select']");
+this.languageConfigureDropdwn = page.locator("(//select[@class='admin__control-select required-entry super-attribute-select'])[2]");
+this.configureOKBtn = page.locator("//button[@class='action-primary']");
+this.addProductToOrder = page.locator("//button[@title='Add Products to Order']");
+this.contactDropDown = page.locator("//td[@class='col-contact']/select");
+this.updateItemsButton = page.locator("//button[@title='Update Items and Quantities']");
+this.skuField = page.locator("input#sales_order_create_search_grid_filter_sku");
+this.noDataMsge = page.locator("//tr[@class='data-grid-tr-no-data even']/td");
+this.addNewContact = page.locator("//span[text()='Add New Contact']");
+this.activeInputTag = page.locator("(//input[@name='is_active'])[1]");
+this.TPTLearner = page.locator("//fieldset[@class='admin__fieldset']/div[2]/div/div/label");
+this.billTo = page.locator("//div[@class='admin__field'][2]/div[2]/div/label");
+this.shipTo = page.locator("//div[@class='admin__field'][3]/div[2]/div/label");
+this.deliverTo = page.locator("//div[@class='admin__field'][4]/div[2]/div/label/span");
+this.firstNameTxtInput = page.locator("(//div[@class='admin__field-control']//input[@class='admin__control-text' and @type='text'])[1]");
+this.lastNameTxtInput = page.locator("(//div[@class='admin__field-control']//input[@class='admin__control-text' and @type='text'])[2]");
+this.firstNameTextbox = page.locator("//div[@id='modal-content-15']/div/div[1]/div/div[2]/div[2]/div/fieldset/div[6]/div[2]/input");
+this.middlwNameTextbox = page.locator("//div[@id='modal-content-15']/div/div[1]/div/div[2]/div[2]/div/fieldset/div[7]/div[2]/input");
+this.lastNameTextbox = page.locator("//div[@id='modal-content-15']/div/div[1]/div/div[2]/div[2]/div/fieldset/div[8]/div[2]/input");
+this.emailTextbox = page.locator("//div[@id='modal-content-15']/div/div[1]/div/div[2]/div[2]/div/fieldset/div[9]/div[2]/input");
+this.phoneTextbox = page.locator("//div[@id='modal-content-15']/div/div[1]/div/div[2]/div[2]/div/fieldset/div[10]/div[2]/input");
+this.saveButton = page.locator("//div[@class='page-actions floating-header']/button[2]");
+this.emailInput = page.locator("(//input[@name='email'])[2]");
+this.discountPopUp = page.locator("*//[text()='Automated Discount']");
+
+      
+  }
+
+ 
+
+
+
+}
