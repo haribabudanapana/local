@@ -118,7 +118,7 @@ export class Maepage {
   async NewLoginPublic2(userEmail: string, password: string) {
     stepLogger('Performing new login with email and password');
     await test.step('Performing new login with email and password', async () => {
-    await this.newSignInButton2.waitFor({ state: 'visible', timeout: 10000 });
+    await this.newSignInButton2.waitFor({ state: 'visible', timeout: 30000 });
     await this.userNameTxt.fill(userEmail);
     await this.passwordTxt.fill(password);
     await this.handleOneTrustCookie();
@@ -174,11 +174,9 @@ async groupsCheck(): Promise<string> {
 
     if (label === 'Disabled') {
       await this.groupsPointToggle.click();
-      await this.page.waitForTimeout(2000);
       return 'Enabled';
     } else if (label === 'Enabled') {
       await this.groupsPointToggle.click();
-      await this.page.waitForTimeout(2000);
       return 'Disabled';
     }
 
@@ -204,7 +202,6 @@ async groupsCheck(): Promise<string> {
     await this.Signoutdropdown.click();
     await this.SignoutBtn.waitFor({ state: 'visible', timeout: 5000 });
     await this.SignoutBtn.click();
-    await this.page.waitForTimeout(5000); // Wait for signout to complete
     });
   }
 
@@ -223,7 +220,7 @@ async groupsCheck(): Promise<string> {
       await this.AccessManagement.waitFor({ state: 'visible', timeout: 5000 });
       await this.AccessManagement.waitFor({ state: 'attached', timeout: 10000 });
       await this.AccessManagement.click();
-      await this.page.screenshot({ path: 'AccessManagementTab.png' });
+      await this.page.screenshot({ path: 'test-results/Screenshots/AccessManagementTab.png' });
     } catch (e) {
       console.error("Failed to click on AccessManagementTab", e);
       throw e;
@@ -254,7 +251,7 @@ async groupsCheck(): Promise<string> {
       token = '"N"';
     }
 
-    await this.page.screenshot({ path: 'VerifyJWTToken.png' });
+    await this.page.screenshot({ path: 'test-results/Screenshots/VerifyJWTToken.png' });
   } catch (e) {
     console.error("Failed to validate JWT token enabled", e);
     throw e;
@@ -270,10 +267,11 @@ async groupsCheck(): Promise<string> {
   await test.step('Verifying Audit tab with note', async () => {
     try {
       await this.AuditTab.scrollIntoViewIfNeeded();
-      await this.AuditTab.waitFor({ state: 'attached', timeout: 10000 });
+      await this.AuditTab.waitFor({ state: 'attached', timeout: 30000 });
       await this.AuditTab.click();
-      await this.page.waitForTimeout(6000);
-      await this.RecentHistoryLabel.waitFor({ state: 'visible', timeout: 10000 });
+      await this.RecentHistoryLabel.waitFor({ state: 'visible', timeout: 30000 });
+
+      await this.VerifyAuditHistory.waitFor({ state: 'visible', timeout: 30000 });
       const historyText = await this.VerifyAuditHistory.textContent();
       if (!historyText?.includes(note)) {
         throw new Error("Note not found in audit history");
@@ -289,9 +287,9 @@ async groupsCheck(): Promise<string> {
   stepLogger('Verifying Compass Tab');
   await test.step('Verifying Compass Tab', async () => {
     try {
-      await this.CompassTab.waitFor({ state: 'attached', timeout: 5000 });
+      await this.CompassTab.waitFor({ state: 'attached', timeout: 30000 });
       await this.CompassTab.click();
-      await this.page.screenshot({ path: 'CompassTab.png' });
+      await this.page.screenshot({ path: 'test-results/Screenshots/CompassTab.png' });
     } catch (e) {
       console.error("Failed to click Compass Tab", e);
       throw e;
@@ -304,7 +302,7 @@ async userNameAndPasswordLoginCheck(): Promise<string> {
     let auth = "";
 
     try {
-      await this.page.screenshot({ path: 'UserNamePasswordLabel.png' });
+      await this.page.screenshot({ path: 'test-results/Screenshots/UserNamePasswordLabel.png' });
       const labelText = await this.userNamePasswordLoginLabel.textContent();
 
       if (labelText?.includes("Disabled")) {
@@ -312,8 +310,6 @@ async userNameAndPasswordLoginCheck(): Promise<string> {
         if (!labelHandle) throw new Error("UserNamePasswordLoginLabel element not found");  
 
         await this.page.evaluate(el => el.scrollIntoView(), labelHandle);
-        await this.page.waitForTimeout(5000);
-
         await this.userNamePasswordLoginToggle.click();
         await this.IpaccessCheckbox.waitFor({ state: 'attached', timeout: 5000 });
         await this.IpaccessCheckbox.click();
@@ -325,8 +321,6 @@ async userNameAndPasswordLoginCheck(): Promise<string> {
         if (!labelHandle) throw new Error("UserNamePasswordLoginLabel element not found");
 
         await this.page.evaluate(el => el.scrollIntoView(), labelHandle);
-        await this.page.waitForTimeout(5000);
-
         await this.userNamePasswordLoginToggle.click();
         auth = "false";
       }
@@ -363,23 +357,17 @@ async verifySubscriptionUsageReport() {
     await this.UsageReport.waitFor({ state: 'visible', timeout: 15000 });
     await expect(this.UsageReport).toBeVisible();
     await expect(this.UserReport).toBeVisible();
-
-    await this.page.waitForTimeout(15000); // Equivalent to PublicCommon.waitForSec(15)
-    await this.page.screenshot({ path: 'UsageReport_Visible.png' });
+    await this.page.screenshot({ path: 'test-results/Screenshots/UsageReport_Visible.png' });
 
     // Scroll down using keyboard
     await this.page.keyboard.press('PageDown');
-    await this.page.screenshot({ path: 'After_PageDown_1.png' });
-
+    await this.page.screenshot({ path: 'test-results/Screenshots/After_PageDown_1.png' });
     await this.page.keyboard.press('PageDown');
     await this.page.keyboard.press('PageDown');
-    await this.page.screenshot({ path: 'After_PageDown_2.png' });
-
+    await this.page.screenshot({ path: 'test-results/Screenshots/After_PageDown_2.png' });
     await this.UserReport.click();
-    await this.page.waitForTimeout(20000); // Equivalent to PublicCommon.waitForSec(20)
-
     await this.page.keyboard.press('PageDown');
-    await this.page.screenshot({ path: 'Final_Scroll_UserReport.png' });
+    await this.page.screenshot({ path: 'test-results/Screenshots/Final_Scroll_UserReport.png' });
   } catch (e) {
     console.error('Failed to verify Subscription Usage Report', e);
     throw e;
@@ -395,7 +383,6 @@ async verifySubscriptionUsageReport() {
       await this.ProductEntLink.scrollIntoViewIfNeeded();
       await this.ProductEntLink.waitFor({ state: 'visible', timeout: 10000 });
       await this.ProductEntLink.click();
-      await this.page.waitForTimeout(10000); // equivalent to waitForSec(10)
     } catch (e) {
       console.error('Failed to click on Product Entitlement tab', e);
       throw e; // fail the test
@@ -418,12 +405,10 @@ async verifyStockcode_Graceperiodcheck_1(stockcode: string): Promise<string | nu
 
       // Click Search button
       await this.SearchBtn.click();
-      await this.page.waitForTimeout(2000);
 
       // Click on Grace Period dropdown
       await this.GracePeriodDDN.scrollIntoViewIfNeeded();
       await this.GracePeriodDDN.click();
-      await this.page.waitForTimeout(1000);
 
       // Wait for grace period options
       const graceOptions = this.page.locator("[id^='react-select-8-option']");

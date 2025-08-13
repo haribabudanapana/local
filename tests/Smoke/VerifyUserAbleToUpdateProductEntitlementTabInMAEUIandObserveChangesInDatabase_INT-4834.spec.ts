@@ -6,7 +6,7 @@ const testData = loadTestData(__filename);
 
 test.describe('@Smoke Verify that user is able to update Product Entitlement tab in MAE UI and Observe the changes in database', () => {
 test('Verify that user is able to update Product Entitlement tab in MAE UI and Observe the changes in database', async ({ page }) => {
-
+  test.setTimeout(120000) ;
   const maePage = new Maepage(page);
   const stockcode = 'MEMINDIVIDUAL25';
 

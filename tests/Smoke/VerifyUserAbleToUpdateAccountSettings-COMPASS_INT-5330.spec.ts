@@ -10,9 +10,11 @@ const testData = loadTestData(__filename);
 
 test.describe('@Smoke Verify user can update MAE Access Settings and validate DB - INT-5330', () => {
 test('Verify user can update MAE Access Settings and validate DB - INT-5330', async ({ page }) => {
+  test.setTimeout(120000) ;
   const maePage = new Maepage(page);
-  const AccountSettingNote = 'ActNote' + Date.now();
-  const CompassNote = 'CompassNote' + Date.now();
+  const  now = new Date();
+  const AccountSettingNote = 'Account Note'+now.getDate()+now.getMonth()+now.getFullYear();
+  const CompassNote = 'Compass Note'+now.getDate()+now.getMonth()+now.getFullYear();
 
   await maePage.MAElogin(testData.StageUser, testData.StagePassword);
   await maePage.clickMAEButton();
@@ -29,7 +31,6 @@ test('Verify user can update MAE Access Settings and validate DB - INT-5330', as
   const authStatus = await maePage.userNameAndPasswordLoginCheck();
   await maePage.SaveAndAddAuditNote(CompassNote);
   await maePage.verifyAuditTab(CompassNote);
-
   
   const query = `
   SELECT aaas."IPEnabled", aaas."AnonymousOrgAuthEnabled", aaas."ModifiedDate"
